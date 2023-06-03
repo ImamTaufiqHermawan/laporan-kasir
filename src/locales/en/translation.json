@@ -78,7 +78,10 @@
       "dashboard": "Dashboard",
       "profile": "Profile",
       "blank": "Blank",
-      "mainMenu": "Main Menu",
+      "transaction": "Transaksi",
+      "finance": "Penjualan",
+      "mainMenu": "Data",
+      "stock": "Stok Barang",
       "subMenu": "Sub Menu"
     }
   },
