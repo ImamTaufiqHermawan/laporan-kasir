@@ -22,8 +22,13 @@ export const MENU: IMenuItem[] = [
   },
   {
     name: i18n.t('menusidebar.label.transaction'),
-    icon: 'fas fa-solid fa-cash-register nav-icon',
+    icon: 'fas fa-solid fa-tachometer-alt nav-icon',
     path: '/transaction'
+  },
+  {
+    name: i18n.t('menusidebar.label.product'),
+    icon: 'fas fa-solid fa-cash-register nav-icon',
+    path: '/product'
   },
   {
     name: i18n.t('menusidebar.label.mainMenu'),
@@ -40,7 +45,7 @@ export const MENU: IMenuItem[] = [
         path: '/finance'
       }
     ]
-  }
+  },
 ];
 
 const StyledBrandImage = styled(PfImage)`
@@ -94,7 +99,7 @@ const MenuSidebar = () => {
         </div>
 
         <div className="form-inline">
-          <SidebarSearch />
+          {/* <SidebarSearch /> */}
         </div>
 
         <nav className="mt-2" style={{overflowY: 'hidden'}}>

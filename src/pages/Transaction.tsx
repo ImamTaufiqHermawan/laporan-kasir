@@ -1,167 +1,131 @@
-import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {ContentHeader} from '@components';
-import {PfButton, PfImage} from '@profabric/react-components';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ContentHeader } from '@components';
+import Tables from '@app/components/table/Table';
+import Search from '@app/components/search/Search';
+import {
+  Button, Modal, ModalFooter,
+  ModalHeader, ModalBody, Card, CardHeader, CardBody, Input, FormGroup
+} from "reactstrap"
+import { Col, Row } from 'react-bootstrap';
+import { Form } from 'react-router-dom';
 
-import ActivityTab from './profile/ActivityTab';
-import TimelineTab from './profile/TimelineTab';
-import SettingsTab from './profile/SettingsTab';
+const rupiah = (number: Number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR"
+  }).format(number);
+}
 
-const StyledUserImage = styled(PfImage)`
-  --pf-border: 3px solid #adb5bd;
-  --pf-padding: 3px;
-`;
-
+// rupiah(20000) // "Rp 20.000,00"
 const Transaction = () => {
-  const [activeTab, setActiveTab] = useState('ACTIVITY');
+  const [modal, setModal] = useState(false);
+
   const [t] = useTranslation();
 
-  const toggle = (tab: string) => {
-    if (activeTab !== tab) setActiveTab(tab);
-  };
+  // Toggle for Modal
+  const toggleModal = () => setModal(!modal);
 
   return (
     <>
-      <ContentHeader title="Profile" />
-      <h1>HI INI Halaman Transaction</h1>
+      <ContentHeader title="Transaksi" />
       <section className="content">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="card card-primary card-outline">
-                <div className="card-body box-profile">
-                  <div className="text-center">
-                    <StyledUserImage
-                      width={100}
-                      height={100}
-                      rounded
-                      src="/img/default-profile.png"
-                      alt="User profile"
-                    />
-                  </div>
-                  <h3 className="profile-username text-center">
-                    Nina Mcintire
-                  </h3>
-                  <p className="text-muted text-center">Software Engineer</p>
-                  <ul className="list-group list-group-unbordered mb-3">
-                    <li className="list-group-item">
-                      <b>{t<string>('header.user.followers')}</b>
-
-                      <span className="float-right">1,322</span>
-                    </li>
-                    <li className="list-group-item">
-                      <b>{t<string>('views.user.following')}</b>
-                      <span className="float-right">543</span>
-                    </li>
-                    <li className="list-group-item">
-                      <b>{t<string>('header.user.friends')}</b>
-                      <span className="float-right">13,287</span>
-                    </li>
-                  </ul>
-                  <PfButton block>
-                    {/* @ts-ignore */}
-                    {t<string>('main.label.follow')}
-                  </PfButton>
-                </div>
-                {/* /.card-body */}
-              </div>
-              <div className="card card-primary">
-                <div className="card-header">
-                  <h3 className="card-title">
-                    {t<string>('main.label.aboutMe')}
-                  </h3>
-                </div>
-                <div className="card-body">
-                  <strong>
-                    <i className="fas fa-book mr-1" />
-                    {t<string>('main.label.education')}
-                  </strong>
-                  <p className="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at
-                    Knoxville
-                  </p>
-                  <hr />
-                  <strong>
-                    <i className="fas fa-map-marker-alt mr-1" />
-                    {t<string>('main.label.location')}
-                  </strong>
-                  <p className="text-muted">Malibu, California</p>
-                  <hr />
-                  <strong>
-                    <i className="fas fa-pencil-alt mr-1" />
-                    {t<string>('main.label.skills')}
-                  </strong>
-                  <p className="text-muted">
-                    <span className="tag tag-danger">UI Design</span>
-                    <span className="tag tag-success">Coding</span>
-                    <span className="tag tag-info">Javascript</span>
-                    <span className="tag tag-warning">PHP</span>
-                    <span className="tag tag-primary">Node.js</span>
-                  </p>
-                  <hr />
-                  <strong>
-                    <i className="far fa-file-alt mr-1" />
-                    {t<string>('main.label.notes')}
-                  </strong>
-                  <p className="text-muted">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam fermentum enim neque.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-9">
-              <div className="card">
-                <div className="card-header p-2">
-                  <ul className="nav nav-pills">
-                    <li className="nav-item">
-                      <button
-                        type="button"
-                        className={`nav-link ${
-                          activeTab === 'ACTIVITY' ? 'active' : ''
-                        }`}
-                        onClick={() => toggle('ACTIVITY')}
-                      >
-                        {t<string>('main.label.activity')}
-                      </button>
-                    </li>
-                    <li className="nav-item">
-                      <button
-                        type="button"
-                        className={`nav-link ${
-                          activeTab === 'TIMELINE' ? 'active' : ''
-                        }`}
-                        onClick={() => toggle('TIMELINE')}
-                      >
-                        {t<string>('main.label.timeline')}
-                      </button>
-                    </li>
-                    <li className="nav-item">
-                      <button
-                        type="button"
-                        className={`nav-link ${
-                          activeTab === 'SETTINGS' ? 'active' : ''
-                        }`}
-                        onClick={() => toggle('SETTINGS')}
-                      >
-                        {t<string>('main.label.settings')}
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                <div className="card-body">
-                  <div className="tab-content">
-                    <ActivityTab isActive={activeTab === 'ACTIVITY'} />
-                    <TimelineTab isActive={activeTab === 'TIMELINE'} />
-                    <SettingsTab isActive={activeTab === 'SETTINGS'} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <Search></Search>
+        <Tables></Tables>
+        <div className="input-group-append d-md-flex justify-content-end">
+          <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>
+            <i className="fas fa-pencil-alt mr-2" />
+            Catat Transaksi
+          </button>
         </div>
-      </section>
+        {/* create modal */}
+        <div style={{
+          display: 'block', padding: 30
+        }}>
+          <Modal isOpen={modal} toggle={toggleModal}>
+            <ModalHeader
+              toggle={toggleModal}>Buat Transaksi</ModalHeader>
+            <ModalBody>
+              <div className="pl-lg-4">
+                <Row>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label className="form-control-label">Nama Produk</label>
+                      <select className="form-control" id="exampleFormControlSelect1">
+                        <option>CFC 1</option>
+                        <option>CFC 2</option>
+                        <option>CFC 3</option>
+                      </select>
+                    </div>
+                  </Col>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label className="form-control-label">Harga</label>
+                      <Input
+                        className="form-control-alternative"
+                        id="input-email"
+                        value={rupiah(0)}
+                        placeholder="0"
+                        type="text"
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-first-name"
+                      >
+                        Quantity
+                      </label>
+                      <Input
+                        className="form-control-alternative"
+                        placeholder="0"
+                        type="number"
+                      />
+                    </div>
+                  </Col>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label className="form-control-label">Total Harga</label>
+                      <Input
+                        className="form-control-alternative"
+                        id="input-email"
+                        value={rupiah(0)}
+                        placeholder="0"
+                        type="text"
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label className="form-control-label">Tanggal</label>
+                      <input className="form-control" type="date" />
+                    </div>
+                  </Col>
+                  <Col lg="6">
+                    <div className="form-group">
+                      <label className="form-control-label">Shift</label>
+                      <select className="form-control" id="exampleFormControlSelect1">
+                        <option>Pagi</option>
+                        <option>Siang</option>
+                        <option>Sore</option>
+                      </select>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </ModalBody >
+            <ModalFooter>
+              <Button color="primary" onClick={toggleModal}>Submit</Button>
+            </ModalFooter>
+          </Modal >
+        </div >
+      </section >
     </>
   );
 };

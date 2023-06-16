@@ -18,6 +18,7 @@ import Profile from '@pages/profile/Profile';
 import Transaction from '@pages/Transaction';
 import Stock from '@pages/Stock';
 import Finance from '@pages/Finance';
+import Product from '@pages/Product';
 
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
@@ -91,6 +92,7 @@ const App = () => {
             <Route path="/sub-menu-1" element={<SubMenu />} />
             <Route path="/blank" element={<Blank />} />
             <Route path="/transaction" element={<Transaction />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/stock" element={<Stock />} />
             <Route path="/finance" element={<Finance />} />
             <Route path="/profile" element={<Profile />} />
