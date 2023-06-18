@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContentHeader } from '@components';
-import Tables from '@app/components/table/Table';
+import TransactionTables from '@app/components/table/Transaction';
 import Search from '@app/components/search/Search';
 import {
   Button, Modal, ModalFooter,
@@ -9,6 +9,10 @@ import {
 } from "reactstrap"
 import { Col, Row } from 'react-bootstrap';
 import { Form } from 'react-router-dom';
+import { ProductService } from '@app/services/productService';
+import { CreateTransactionActions } from '@app/store/actions/transactionActions';
+import { TransactionService } from '@app/services/TransactionService';
+import { useDispatch } from 'react-redux';
 
 const rupiah = (number: Number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -19,19 +23,69 @@ const rupiah = (number: Number) => {
 
 // rupiah(20000) // "Rp 20.000,00"
 const Transaction = () => {
+  const dispatch = useDispatch();
+  const [update, setUpdate] = useState(false)
   const [modal, setModal] = useState(false);
+  const [transactions, setTransactions] = useState([])
+  const [products, setProducts] = useState([])
+  const [productId, setProductId] = useState()
+  const [product, setProduct] = useState({ product: { price: 0 } })
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [formCreate, setFormCreate] = useState({})
+
+  useEffect(() => {
+    TransactionService.getTransactions().then((res) => {
+      setTransactions(res.data.data);
+    });
+  }, [update])
+
+  console.log(transactions)
+
+  useEffect(() => {
+    ProductService.getProducts().then((res) => {
+      setProducts(res.data.data);
+    });
+  }, [])
+
+  useEffect(() => {
+    if (productId == 0) {
+      setProduct({ product: { price: 0 } });
+      setTotalPrice(0)
+    }
+    ProductService.getProductById(productId).then((res) => {
+      setProduct(res.data.data);
+    });
+    console.log(product)
+  }, [productId])
+
+  useEffect(() => {
+    setTotalPrice(formCreate?.quantity * product?.product?.price)
+  }, [formCreate?.quantity, productId])
 
   const [t] = useTranslation();
 
   // Toggle for Modal
   const toggleModal = () => setModal(!modal);
 
+  const productHandler = (e) => {
+    console.log(e.target.value)
+    setFormCreate({ ...formCreate, productId: e.target.value })
+    console.log(formCreate)
+    setProductId(e.target.value)
+  }
+
+  const createHandler = async () => {
+    dispatch(CreateTransactionActions(formCreate));
+    setUpdate(!update)
+    setModal(!modal)
+  }
+
   return (
     <>
       <ContentHeader title="Transaksi" />
       <section className="content">
         <Search></Search>
-        <Tables></Tables>
+        <TransactionTables data={transactions}></TransactionTables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>
             <i className="fas fa-pencil-alt mr-2" />
@@ -51,10 +105,13 @@ const Transaction = () => {
                   <Col lg="6">
                     <div className="form-group">
                       <label className="form-control-label">Nama Produk</label>
-                      <select className="form-control" id="exampleFormControlSelect1">
-                        <option>CFC 1</option>
-                        <option>CFC 2</option>
-                        <option>CFC 3</option>
+                      <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => productHandler(e)}>
+                        <option value={0}>-- Pilih Product --</option>
+                        {products?.products?.map((item) => {
+                          return (
+                            <option key={item.id} value={item.id}>{item.name}</option>
+                          )
+                        })}
                       </select>
                     </div>
                   </Col>
@@ -64,7 +121,7 @@ const Transaction = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-email"
-                        value={rupiah(0)}
+                        value={rupiah(product?.product?.price)}
                         placeholder="0"
                         type="text"
                         disabled
@@ -83,6 +140,7 @@ const Transaction = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
+                        onChange={(e) => setFormCreate({ ...formCreate, quantity: e.target.value, totalPrice: e.target.value * product?.product?.price })}
                         placeholder="0"
                         type="number"
                       />
@@ -94,7 +152,7 @@ const Transaction = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-email"
-                        value={rupiah(0)}
+                        value={rupiah(totalPrice)}
                         placeholder="0"
                         type="text"
                         disabled
@@ -104,16 +162,16 @@ const Transaction = () => {
                   <Col lg="6">
                     <div className="form-group">
                       <label className="form-control-label">Tanggal</label>
-                      <input className="form-control" type="date" />
+                      <input className="form-control" type="date" onChange={(e) => setFormCreate({ ...formCreate, transactionDate: e.target.value })} />
                     </div>
                   </Col>
                   <Col lg="6">
                     <div className="form-group">
                       <label className="form-control-label">Shift</label>
-                      <select className="form-control" id="exampleFormControlSelect1">
-                        <option>Pagi</option>
-                        <option>Siang</option>
-                        <option>Sore</option>
+                      <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setFormCreate({ ...formCreate, shift: e.target.value })}>
+                        <option value="Pagi">Pagi</option>
+                        <option value="Siang">Siang</option>
+                        <option value="Malam">Sore</option>
                       </select>
                     </div>
                   </Col>
@@ -121,7 +179,7 @@ const Transaction = () => {
               </div>
             </ModalBody >
             <ModalFooter>
-              <Button color="primary" onClick={toggleModal}>Submit</Button>
+              <Button color="primary" onClick={() => createHandler()}>Submit</Button>
             </ModalFooter>
           </Modal >
         </div >

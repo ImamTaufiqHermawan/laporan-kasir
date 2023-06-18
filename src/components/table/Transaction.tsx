@@ -52,20 +52,17 @@ const rupiah = (number: Number) => {
   }).format(number);
 }
 
-const Tables = (data) => {
+const TransactionTables = (transactions) => {
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [formValues, setFormValues] = useState([])
   const [productId, setProductId] = useState()
   const [update, setUpdate] = useState(false)
-  const [products, setproducts] = useState(data)
+  // const [transactions, setTransactions] = useState(data)
 
   useEffect(() => {
-    ProductService.getProducts().then((res) => {
-      setproducts(res.data.data);
-    });
-  }, [update, data])
+  }, [transactions])
 
   // Toggle for Modal
   const toggleEditModal = () => {
@@ -104,6 +101,9 @@ const Tables = (data) => {
     setDeleteModal(!deleteModal)
   }
 
+  console.log(transactions)
+  // console.log(data)
+
   return (
     <>
       {/* Page content */}
@@ -115,23 +115,25 @@ const Tables = (data) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Harga</th>
-                    <th scope="col">Stok</th>
-                    <th scope="col">Tanggal Update</th>
+                    <th scope="col">Total Harga</th>
+                    <th scope="col">Tanggal Transaksi</th>
+                    <th scope="col">Tanggal Input</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {products?.products?.map((product, index) => {
+                  {transactions?.data?.map((transaction, index) => {
                     return (
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{product.name}</td>
-                        <td>{rupiah(product.price)}</td>
-                        <td>{product.stock}</td>
-                        <td>{formatDate(product.updatedAt)}</td>
+                        <td>{transaction?.Product?.name}</td>
+                        <td>{rupiah(transaction?.Product?.price)}</td>
+                        <td>{rupiah(transaction?.totalPrice)}</td>
+                        <td>{formatDate(transaction?.transactionDate)}</td>
+                        <td>{formatDate(transaction?.createdAt)}</td>
                         <td className="text-right">
                           <UncontrolledDropdown>
                             <DropdownToggle
@@ -295,4 +297,4 @@ const Tables = (data) => {
   );
 };
 
-export default Tables;
+export default TransactionTables;

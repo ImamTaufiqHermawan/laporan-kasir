@@ -1,47 +1,32 @@
 import { ProductService } from '@app/services/productService';
 import { toast } from 'react-toastify';
 
-// export const getAirportActions = () => async (dispatch) => {
-//     try {
-//         const response = await AirportService.getAirport();
-//         dispatch({type: 'END'})  
-//         return response;
-//     } catch (error) {
-//         SweatAlert(String(error.response.data.message), 'warning')
-//         dispatch({type: 'END'})  
-//     }       
-// }
+export const UpdateProductActions = (id, data) => async () => {
+    try {
+        const response = await ProductService.editProdut(id, data);
+        toast.success('Update Produk Berhasil!');
+        return response;
+    } catch (error) {
+        toast.error(error?.response?.data?.message || 'Gagal Update Produk!');
+    }       
+}
 
-// export const PutAirportActions = (id, data) => async (dispatch) => {
-//     try {
-//         const response = await AirportService.postAirport(id, data);
-//         SweatAlert('Update Berhasil', 'success');
-//         dispatch({type: 'END'})  
-//         return response;
-//     } catch (error) {
-//         SweatAlert(String(error.response.data.message), 'warning')
-//         dispatch({type: 'END'})  
-//     }       
-// }
-
-// export const DeleteAirportActions = (id) => async (dispatch) => {
-//     try {
-//         const response = await AirportService.deleteAirport(id);
-//         SweatAlert('Delete Berhasil', 'success');
-//         dispatch({type: 'END'})  
-//         return response;
-//     } catch (error) {
-//         SweatAlert(String(error.response.data.message), 'warning')
-//         dispatch({type: 'END'})  
-//     }       
-// }
+export const DeleteProductActions = (id) => async () => {
+    try {
+        const response = await ProductService.deleteProduct(id);
+        toast.success(response?.data?.message || 'Hapus Produk berhasil!');
+        return response;
+    } catch (error) {
+        toast.error(error?.response?.data?.message || 'Gagal Buat Produk!');
+    }       
+}
 
 export const CreateProductActions = (data) => async () => {
     try {
         const response = await ProductService.createProduct(data);
-        toast.success('Product is created!');
+        toast.success('Produk berhasil dibuat!');
         return response;
     } catch (error) {
-        toast.error(error?.response?.data?.message || 'Failed create product');
+        toast.error(error?.response?.data?.message || 'Gagal Buat Produk!');
     }
 }

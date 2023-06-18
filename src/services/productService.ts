@@ -13,16 +13,15 @@ export const ProductService = {
     return response;
   },
 
+  editProdut: async (id, data) => {
+    const response = await API.put('/products/' + id, data);
+    return response;
+  },
 
-  // postAirport: async (id, data) => {
-  //   const response = await API.put('/airports/update/' + id, data);
-  //   return response;
-  // },
-
-  // deleteAirport: async (id) => {
-  //   const response = await API.delete('/airports/delete/' + id);
-  //   return response;
-  // },
+  deleteProduct: async (id) => {
+    const response = await API.delete('/products/' + id);
+    return response;
+  },
 
   createProduct: async (data) => {
     const response = await API.post('/products', data);

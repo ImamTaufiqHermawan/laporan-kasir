@@ -41,7 +41,7 @@ const Product = () => {
       <ContentHeader title="Produk" />
       <section className="content">
         <Search></Search>
-        <Tables products={products?.products}></Tables>
+        <Tables data={products}></Tables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>
             <i className="fas fa-pencil-alt mr-2" />
