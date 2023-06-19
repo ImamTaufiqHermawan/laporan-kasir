@@ -120,6 +120,7 @@ const TransactionTables = (transactions) => {
                     <th scope="col">Harga</th>
                     <th scope="col">Total Harga</th>
                     <th scope="col">Tanggal Transaksi</th>
+                    <th scope="col">Quantity</th>
                     <th scope="col">Tanggal Input</th>
                     <th scope="col" />
                   </tr>
@@ -133,6 +134,7 @@ const TransactionTables = (transactions) => {
                         <td>{rupiah(transaction?.Product?.price)}</td>
                         <td>{rupiah(transaction?.totalPrice)}</td>
                         <td>{formatDate(transaction?.transactionDate)}</td>
+                        <td>{transaction?.quantity}</td>
                         <td>{formatDate(transaction?.createdAt)}</td>
                         <td className="text-right">
                           <UncontrolledDropdown>
