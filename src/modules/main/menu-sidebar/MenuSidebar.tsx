@@ -31,6 +31,11 @@ export const MENU: IMenuItem[] = [
     path: '/product'
   },
   {
+    name: i18n.t('menusidebar.label.user'),
+    icon: 'fas fa-light fa-users nav-icon',
+    path: '/user'
+  },
+  {
     name: i18n.t('menusidebar.label.mainMenu'),
     icon: 'far fa-caret-square-down nav-icon',
     children: [

@@ -83,7 +83,8 @@
       "finance": "Penjualan",
       "mainMenu": "Data",
       "stock": "Stok Barang",
-      "subMenu": "Sub Menu"
+      "subMenu": "Sub Menu",
+      "user": "Pegawai"
     }
   },
   "footer": {

@@ -11,10 +11,9 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { CreateProductActions } from '@app/store/actions';
 import { ProductService } from '@app/services/productService';
-import User from './User';
 import { toast } from 'react-toastify';
 
-const Product = () => {
+const User = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [update, setUpdate] = useState(false)
@@ -49,7 +48,7 @@ const Product = () => {
 
   return (
     <>
-      <ContentHeader title="Produk" />
+      <ContentHeader title="Pegawai" />
       <section className="content">
         <Search></Search>
         <Tables data={products}></Tables>
@@ -123,4 +122,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default User;

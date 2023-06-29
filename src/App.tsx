@@ -19,6 +19,7 @@ import Transaction from '@pages/Transaction';
 import Stock from '@pages/Stock';
 import Finance from '@pages/Finance';
 import Product from '@pages/Product';
+import User from '@pages/User';
 
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
@@ -96,6 +97,7 @@ const App = () => {
             <Route path="/stock" element={<Stock />} />
             <Route path="/finance" element={<Finance />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/user" element={<User />} />
             <Route path="/" element={<Dashboard />} />
           </Route>
         </Route>
