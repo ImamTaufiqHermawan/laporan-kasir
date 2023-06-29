@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContentHeader } from '@components';
-import Tables from '@app/components/table/Table';
+import Tables from '@app/components/table/User';
 import Search from '@app/components/search/Search';
 import {
   Button, Modal, ModalFooter,
@@ -12,6 +12,8 @@ import { useDispatch } from 'react-redux';
 import { CreateProductActions } from '@app/store/actions';
 import { ProductService } from '@app/services/productService';
 import { toast } from 'react-toastify';
+import { UserService } from '@app/services/userService';
+import { CreateUserActions } from '@app/store/actions/userActions';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const User = () => {
   const [update, setUpdate] = useState(false)
   const [formCreate, setFormCreate] = useState([])
   const [products, setproducts] = useState([])
+  const [users, setUsers] = useState([])
 
   const [t] = useTranslation();
 
@@ -27,7 +30,7 @@ const User = () => {
     const user = {
       role: 'pegawai'
     }
-    if(user.role === 'pegawai') {
+    if(user.role === 'manager') {
       toast.error('KAMU GAK BISA AKSES INI KARENA KAMU BUKAN MANAGER!');
     } else {
       setModal(!modal);
@@ -35,27 +38,29 @@ const User = () => {
   }
 
   useEffect(() => {
-    ProductService.getProducts().then((res) => {
-      setproducts(res.data.data);
+    UserService.getUsers().then((res) => {
+      setUsers(res.data.data);
     });
   }, [update])
 
   const createHandler = async () => {
-    dispatch(CreateProductActions(formCreate));
+    dispatch(CreateUserActions(formCreate));
     setUpdate(!update)    
     setModal(!modal)
   }
+
+  console.log(formCreate)
 
   return (
     <>
       <ContentHeader title="Pegawai" />
       <section className="content">
         <Search></Search>
-        <Tables data={products}></Tables>
+        <Tables data={users}></Tables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>
             <i className="fas fa-pencil-alt mr-2" />
-            Catat Produk
+            Bikin Akun Baru
           </button>
         </div>
         {/* create modal */}
@@ -64,52 +69,54 @@ const User = () => {
         }}>
           <Modal isOpen={modal} toggle={toggleModal}>
             <ModalHeader
-              toggle={toggleModal}>Buat Produk</ModalHeader>
+              toggle={toggleModal}>Buat Akun Pegawai</ModalHeader>
             <ModalBody>
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="12">
                     <div className="form-group">
-                      <label className="form-control-label">Nama Produk</label>
+                      <label className="form-control-label">Nama Pegawai</label>
                       <Input
                         className="form-control-alternative"
                         id="input-name"
-                        placeholder="ayam"
+                        placeholder="Lisma Nurmala"
                         name='name'
                         type="text"
                         onChange={(e) => setFormCreate({ ...formCreate, name: e.target.value })}
                       />
                     </div>
                   </Col>
-                </Row>
+                </Row>                
                 <Row>
-                  <Col lg="6">
+                  <Col lg="12">
                     <div className="form-group">
-                      <label className="form-control-label">Stok</label>
+                      <label className="form-control-label">Email</label>
                       <Input
                         className="form-control-alternative"
-                        id="input-stock"
-                        placeholder="0"
-                        name='stock'
-                        type="number"
-                        onChange={(e) => setFormCreate({ ...formCreate, stock: e.target.value })}
+                        id="input-email"
+                        placeholder="lismacantik@mail.com"
+                        name='email'
+                        type="text"
+                        onChange={(e) => setFormCreate({ ...formCreate, email: e.target.value })}
                       />
                     </div>
                   </Col>
-                  <Col lg="6">
+                </Row>                
+                <Row>
+                  <Col lg="12">
                     <div className="form-group">
-                      <label className="form-control-label">Harga</label>
+                      <label className="form-control-label">Password</label>
                       <Input
                         className="form-control-alternative"
-                        id="input-price"
-                        placeholder="0"
-                        name='price'
-                        type="number"
-                        onChange={(e) => setFormCreate({ ...formCreate, price: e.target.value })}
+                        id="input-password"
+                        placeholder="LismaCantikBanget123"
+                        name='name'
+                        type="text"
+                        onChange={(e) => setFormCreate({ ...formCreate, password: e.target.value })}
                       />
                     </div>
                   </Col>
-                </Row>
+                </Row>                
               </div>
             </ModalBody >
             <ModalFooter>
