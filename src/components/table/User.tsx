@@ -45,7 +45,7 @@ import { formatDate } from '@app/utils/date';
 import { DeleteProductActions, UpdateProductActions } from '@app/store/actions';
 import { useDispatch } from 'react-redux';
 import { UserService } from '@app/services/userService';
-import { UpdateUserActions } from '@app/store/actions/userActions';
+import { DeleteUserActions, UpdateUserActions } from '@app/store/actions/userActions';
 
 const rupiah = (number: Number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -60,6 +60,7 @@ const Tables = (data) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [formValues, setFormValues] = useState([])
   const [productId, setProductId] = useState()
+  const [userId, setUserId] = useState()
   const [update, setUpdate] = useState(false)
   const [products, setproducts] = useState(data)
   const [users, setUsers] = useState(data)
@@ -97,12 +98,12 @@ const Tables = (data) => {
   }
 
   const deleteModalHandler = async (id) => {
-    setProductId(id)
+    setUserId(id)
     setDeleteModal(!deleteModal)
   }
 
   const deleteHandler = async () => {
-    dispatch(DeleteProductActions(productId));
+    dispatch(DeleteUserActions(userId));
     setUpdate(!update)
     setDeleteModal(!deleteModal)
   }
@@ -155,7 +156,7 @@ const Tables = (data) => {
                                 Edit
                               </DropdownItem>
                               <DropdownItem
-                                onClick={() => deleteModalHandler(product.id)}
+                                onClick={() => deleteModalHandler(user.id)}
                               >
                                 <i className="fas fa-trash-alt mr-2" />
                                 Delete

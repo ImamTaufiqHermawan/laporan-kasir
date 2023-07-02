@@ -12,13 +12,13 @@ export const UpdateUserActions = (id, data) => async () => {
     }       
 }
 
-export const DeleteProductActions = (id) => async () => {
+export const DeleteUserActions = (id) => async () => {
     try {
-        const response = await ProductService.deleteProduct(id);
-        toast.success(response?.data?.message || 'Hapus Produk berhasil!');
+        const response = await UserService.deleteUser(id);
+        toast.success(response?.data?.message || 'Hapus Akun berhasil!');
         return response;
     } catch (error) {
-        toast.error(error?.response?.data?.message || 'Gagal Buat Produk!');
+        toast.error(error?.response?.data?.message || 'Gagal Buat Akun!');
     }       
 }
 

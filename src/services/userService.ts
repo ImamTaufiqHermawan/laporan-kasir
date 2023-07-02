@@ -17,8 +17,8 @@ export const UserService = {
     return response;
   },
 
-  deleteProduct: async (id) => {
-    const response = await API.delete('/products/' + id);
+  deleteUser: async (id) => {
+    const response = await API.delete('/users/' + id);
     return response;
   },
 
