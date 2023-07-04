@@ -7,7 +7,7 @@ export const UserService = {
     return response;
   },
 
-  getUserById: async (id) => {
+  getUserByI: async (id) => {
     const response = await API.get('/users/' + id);
     return response;
   },
@@ -24,6 +24,14 @@ export const UserService = {
 
   createUser: async (data) => {
     const response = await API.post('/users', data);
+    return response;
+  },
+
+  loginUser: async (data) => {
+    console.log('response')
+    const response = await API.post('/auth/login', data);
+    console.log(response)
+    console.log('response')
     return response;
   },
 

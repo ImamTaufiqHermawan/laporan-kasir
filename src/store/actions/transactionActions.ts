@@ -1,15 +1,15 @@
 import { TransactionService } from '@app/services/TransactionService';
 import { toast } from 'react-toastify';
 
-// export const UpdateProductActions = (id, data) => async () => {
-//     try {
-//         const response = await ProductService.editProdut(id, data);
-//         toast.success('Update Produk Berhasil!');
-//         return response;
-//     } catch (error) {
-//         toast.error(error?.response?.data?.message || 'Gagal Update Produk!');
-//     }       
-// }
+export const UpdateTransactionActions = (id, data) => async () => {
+    try {
+        const response = await TransactionService.editTransaction(id, data);
+        toast.success('Update Transaksi Berhasil!');
+        return response;
+    } catch (error) {
+        toast.error(error?.response?.data?.message || 'Gagal Update Transaksi!');
+    }       
+}
 
 // export const DeleteProductActions = (id) => async () => {
 //     try {

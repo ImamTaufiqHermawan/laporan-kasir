@@ -13,10 +13,10 @@ export const TransactionService = {
   //   return response;
   // },
 
-  // editProdut: async (id, data) => {
-  //   const response = await API.put('/products/' + id, data);
-  //   return response;
-  // },
+  editTransaction: async (id, data) => {
+    const response = await API.put('/transactions/' + id, data);
+    return response;
+  },
 
   // deleteProduct: async (id) => {
   //   const response = await API.delete('/products/' + id);

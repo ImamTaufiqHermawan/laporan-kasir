@@ -31,3 +31,15 @@ export const CreateUserActions = (data) => async () => {
         toast.error(error?.response?.data?.message || 'Gagal Buat Akun Pegawai!');
     }
 }
+
+export const LoginUserActions = (data) => async () => {
+    try {
+        const response = await UserService.loginUser(data);
+        toast.success('Login Sukses');
+        console.log(response)
+        return response;
+    } catch (error) {
+        console.log(error)
+        toast.error(error?.response?.data?.message || 'Login gagal');
+    }
+}

@@ -1,15 +1,16 @@
-import { UserManager, UserManagerSettings } from 'oidc-client-ts';
-import { sleep } from './helpers';
+import { UserManager, UserManagerSettings } from "oidc-client-ts";
+import { sleep } from "./helpers";
+import { UserService } from "@app/services/userService";
 
 declare const FB: any;
 
 const GOOGLE_CONFIG: UserManagerSettings = {
-  authority: 'https://accounts.google.com',
+  authority: "https://accounts.google.com",
   client_id:
-    '533830427279-cspigijdu0g50c7imca5pvdbrcn2buaq.apps.googleusercontent.com',
-  client_secret: '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',
+    "533830427279-cspigijdu0g50c7imca5pvdbrcn2buaq.apps.googleusercontent.com",
+  client_secret: "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",
   redirect_uri: `${window.location.protocol}//${window.location.host}/callback`,
-  scope: 'openid email profile',
+  scope: "openid email profile",
   loadUserInfo: true,
 };
 
@@ -23,7 +24,7 @@ export const facebookLogin = () => {
         if (r.authResponse) {
           authResponse = r.authResponse;
           FB.api(
-            '/me?fields=id,name,email,picture.width(640).height(640)',
+            "/me?fields=id,name,email,picture.width(640).height(640)",
             (profileResponse: any) => {
               authResponse.profile = profileResponse;
               authResponse.profile.picture = profileResponse.picture.data.url;
@@ -31,11 +32,11 @@ export const facebookLogin = () => {
             }
           );
         } else {
-          console.log('User cancelled login or did not fully authorize.');
+          console.log("User cancelled login or did not fully authorize.");
           rej(undefined);
         }
       },
-      { scope: 'public_profile,email' }
+      { scope: "public_profile,email" }
     );
   });
 };
@@ -47,7 +48,7 @@ export const getFacebookLoginStatus = () => {
       if (r.authResponse) {
         authResponse = r.authResponse;
         FB.api(
-          '/me?fields=id,name,email,picture.width(640).height(640)',
+          "/me?fields=id,name,email,picture.width(640).height(640)",
           (profileResponse: any) => {
             authResponse.profile = profileResponse;
             authResponse.profile.picture = profileResponse.picture.data.url;
@@ -61,25 +62,38 @@ export const getFacebookLoginStatus = () => {
   });
 };
 
-export const authLogin = (email: string, password: string) => {
-  return new Promise(async (res, rej) => {
-    await sleep(500);
-    if (email === 'admin@example.com' && password === 'admin') {
+export const authLogin = async (email: string, password: string) => {
+    // if (email === 'admin@example.com' && password === 'admin') {
+    //   localStorage.setItem(
+    //     'authentication',
+    //     JSON.stringify({ profile: { email: 'admin@example.com' } })
+    //   );
+    //   return res({ profile: { email: 'admin@example.com' } });
+    // }
+
+    console.log('hellow')
+
+    const response = await UserService.loginUser({ email, password });
+
+    console.log(response.data.data);
+
+    if (response.data.status == "Success") {
       localStorage.setItem(
-        'authentication',
-        JSON.stringify({ profile: { email: 'admin@example.com' } })
+        "authentication",
+        JSON.stringify({ profile: { email: email, role: response.data.data.role } })
       );
-      return res({ profile: { email: 'admin@example.com' } });
-    }
-    return rej({ message: 'Credentials are wrong!' });
-  });
+      return ({ profile: { email: email, role: response.data.data.role } });
+    } 
+
+    return ({ message: "Credentials are wrong!" });
+
 };
 
 export const getAuthStatus = () => {
   return new Promise(async (res, rej) => {
     await sleep(500);
     try {
-      let authentication = localStorage.getItem('authentication');
+      let authentication = localStorage.getItem("authentication");
       if (authentication) {
         authentication = JSON.parse(authentication);
         return res(authentication);

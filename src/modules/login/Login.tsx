@@ -35,8 +35,9 @@ const Login = () => {
       // dispatch(loginUser(token));
       navigate('/');
     } catch (error: any) {
+      console.log(error)
       setAuthLoading(false);
-      toast.error(error.message || 'Failed');
+      toast.error(error.response.data.message || 'Failed');
     }
   };
 
