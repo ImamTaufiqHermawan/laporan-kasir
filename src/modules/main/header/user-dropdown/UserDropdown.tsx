@@ -169,7 +169,7 @@ const UserDropdown = () => {
             </small>
           </p>
         </UserHeader>
-        <UserBody>
+        {/* <UserBody>
           <div className="row">
             <div className="col-4 text-center">
               <Link to="/">{t<string>('header.user.followers')}</Link>
@@ -181,7 +181,7 @@ const UserDropdown = () => {
               <Link to="/">{t<string>('header.user.friends')}</Link>
             </div>
           </div>
-        </UserBody>
+        </UserBody> */}
         <UserFooter>
           <button
             type="button"

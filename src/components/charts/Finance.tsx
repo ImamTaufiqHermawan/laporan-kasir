@@ -34,7 +34,11 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Penjualan 2023',
+      text: 'Transaksi 2023',
+      font: {
+        weight: 'bold',
+        size: 22
+      }
     },
   },
 };
@@ -77,10 +81,7 @@ const Finance = () => {
   };
 
   return (
-    <>
-      <ContentHeader title="Penjualan" />
-      <Line options={options} data={data} />
-    </>
+    <Line options={options} data={data} className="mb-5"/>
   );
 };
 

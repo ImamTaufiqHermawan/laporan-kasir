@@ -16,7 +16,7 @@ import Blank from '@pages/Blank';
 import SubMenu from '@pages/SubMenu';
 import Profile from '@pages/profile/Profile';
 import Transaction from '@pages/Transaction';
-import Stock from '@pages/Stock';
+import Stock from '@app/components/charts/Stock';
 import Finance from '@pages/Finance';
 import Product from '@pages/Product';
 import User from '@pages/User';
@@ -94,8 +94,6 @@ const App = () => {
             <Route path="/blank" element={<Blank />} />
             <Route path="/transaction" element={<Transaction />} />
             <Route path="/product" element={<Product />} />
-            <Route path="/stock" element={<Stock />} />
-            <Route path="/finance" element={<Finance />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<User />} />
             <Route path="/" element={<Dashboard />} />

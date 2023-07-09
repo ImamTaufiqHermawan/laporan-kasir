@@ -101,7 +101,7 @@ const ControlSidebar = () => {
         overflowY: 'scroll'
       }}
     >
-      <h5>Customize AdminLTE</h5>
+      <h5>Customize SisMo</h5>
       <hr className="mb-2" />
 
       <div style={{padding: '8px 0'}}>
@@ -109,12 +109,12 @@ const ControlSidebar = () => {
           <PfCheckbox checked={darkMode} onChange={handleDarkModeChange}>
             Dark mode
           </PfCheckbox>
-          <PfCheckbox checked={layoutBoxed} onChange={handleLayoutBoxedChange}>
+          {/* <PfCheckbox checked={layoutBoxed} onChange={handleLayoutBoxedChange}>
             Boxed (Broken when header or footer is fixed)
-          </PfCheckbox>
+          </PfCheckbox> */}
         </div>
 
-        <h6>Header Options</h6>
+        {/* <h6>Header Options</h6>
 
         <div className="mb-4">
           <PfCheckbox checked={headerFixed} onChange={handleHeaderFixedChange}>
@@ -207,7 +207,7 @@ const ControlSidebar = () => {
           options={[]}
           type="custom"
           disabled
-        />
+        /> */}
       </div>
     </aside>
   );
