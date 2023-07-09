@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "format": "prettier-eslint $PWD/'src/**/*.{js,json}' --write",
     "lint": "eslint src/**/*.js",
-    "start": "serve dist -s -n -L -p $PORT"
+    "start": "npx http-server ./dist"
   },
   "eslintConfig": {
     "extends": [
