@@ -160,9 +160,9 @@ const UserDropdown = () => {
             rounded
           />
           <p>
-            {authentication.profile.email}
+            {authentication.profile.username}
             <small>
-              <span>Member since </span>
+              <span>{authentication.profile.role}</span>
               <span>
                 {/* {DateTime.fromISO(user.createdAt).toFormat('dd LLL yyyy')} */}
               </span>
