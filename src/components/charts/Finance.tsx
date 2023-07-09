@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { TransactionService } from '@app/services/TransactionService';
+import { TransactionService } from '@app/services/transactionService';
 import { format } from 'date-fns';
 import groupBy from 'lodash/groupBy';
 import sumBy from 'lodash/sumBy';

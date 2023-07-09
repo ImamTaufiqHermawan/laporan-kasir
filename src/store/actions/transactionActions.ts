@@ -1,4 +1,4 @@
-import { TransactionService } from '@app/services/TransactionService';
+import { TransactionService } from '@app/services/transactionService';
 import { toast } from 'react-toastify';
 
 export const UpdateTransactionActions = (id, data) => async () => {

@@ -11,7 +11,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Form } from 'react-router-dom';
 import { ProductService } from '@app/services/productService';
 import { CreateTransactionActions } from '@app/store/actions/transactionActions';
-import { TransactionService } from '@app/services/TransactionService';
+import { TransactionService } from '@app/services/transactionService';
 import { useDispatch } from 'react-redux';
 import AutocompleteInput from '@app/components/inputAutoComplete/InputAutoComplete';
 

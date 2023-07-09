@@ -44,7 +44,7 @@ import { ProductService } from '@app/services/productService';
 import { formatDate } from '@app/utils/date';
 import { DeleteProductActions, UpdateProductActions } from '@app/store/actions';
 import { useDispatch } from 'react-redux';
-import { TransactionService } from '@app/services/TransactionService';
+import { TransactionService } from '@app/services/transactionService';
 import { formatDateDefault } from '@app/utils/defaultDate';
 import { DeleteTransactionActions, UpdateTransactionActions } from '@app/store/actions/transactionActions';
 
