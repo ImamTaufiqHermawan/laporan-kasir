@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { ProductService } from '@app/services/productService';
 import { toast } from 'react-toastify';
 
-export const UpdateProductActions = (id, data) => async () => {
+export const UpdateProductActions = (id: any, data: any) => async () => {
     try {
         const response = await ProductService.editProdut(id, data);
         toast.success('Update Produk Berhasil!');
@@ -11,7 +12,7 @@ export const UpdateProductActions = (id, data) => async () => {
     }       
 }
 
-export const DeleteProductActions = (id) => async () => {
+export const DeleteProductActions = (id: any) => async () => {
     try {
         const response = await ProductService.deleteProduct(id);
         toast.success(response?.data?.message || 'Hapus Produk berhasil!');

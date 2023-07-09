@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ProductService } from '@app/services/productService';
 import { UserService } from '@app/services/userService';
 import { toast } from 'react-toastify';

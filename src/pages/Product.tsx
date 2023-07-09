@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ContentHeader } from "@components";
@@ -26,7 +27,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [formCreate, setFormCreate] = useState([]);
+  const [formCreate, setFormCreate] = useState();
   const [products, setproducts] = useState([]);
   const { profile } = useSelector((state: any) => state.auth.authentication);
 

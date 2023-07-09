@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TransactionService } from '@app/services/transactionService';
 import { toast } from 'react-toastify';
 

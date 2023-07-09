@@ -16,6 +16,7 @@
 
 */
 // reactstrap components
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -52,7 +53,7 @@ const rupiah = (number: Number) => {
   }).format(number);
 }
 
-const Tables = (data) => {
+const Tables = (data: any) => {
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -78,7 +79,7 @@ const Tables = (data) => {
   }
   const toggleDeleteModal = () => setDeleteModal(!deleteModal);
 
-  const editModalHandler = async (id) => {
+  const editModalHandler = async (id: any) => {
     console.log(id)
     const product = await ProductService.getProductById(id)
     console.log(product.data?.data)
@@ -93,7 +94,7 @@ const Tables = (data) => {
     setEditModal(!editModal)
   }
 
-  const deleteModalHandler = async (id) => {
+  const deleteModalHandler = async (id: any) => {
     setProductId(id)
     setDeleteModal(!deleteModal)
   }

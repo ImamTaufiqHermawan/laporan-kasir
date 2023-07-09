@@ -52,7 +52,7 @@ const Finance = () => {
     });
   }, [])
 
-  const groups = groupBy(transactions, (entry) => {
+  const groups = groupBy(transactions, (entry: any) => {
     return format(new Date(entry.transactionDate), 'LLLL');
   });
 

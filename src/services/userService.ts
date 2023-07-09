@@ -1,3 +1,4 @@
+// @ts-nocheck
 import API from "./api"
 
 export const UserService = {

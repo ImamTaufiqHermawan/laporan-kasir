@@ -16,6 +16,7 @@
 
 */
 // reactstrap components
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import {

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-const AutocompleteInput = (data) => {
+const AutocompleteInput = (data: any) => {
   const [inputValue, setInputValue] = useState('');
 
   console.log(data.data.products)
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
   };
 
-  const handleSelectOption = (event) => {
+  const handleSelectOption = (event: any) => {
     setInputValue(event.target.value);
   };
 
@@ -23,7 +23,7 @@ const AutocompleteInput = (data) => {
         placeholder="Type to autocomplete"
       />
       <datalist id="options">
-        {data.data.products.map((product) => (
+        {data.data.products.map((product: any) => (
           <option key={product.id} value={product.name} />
         ))}
       </datalist>
