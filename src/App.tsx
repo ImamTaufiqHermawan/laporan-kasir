@@ -16,8 +16,6 @@ import Blank from '@pages/Blank';
 import SubMenu from '@pages/SubMenu';
 import Profile from '@pages/profile/Profile';
 import Transaction from '@pages/Transaction';
-import Stock from '@app/components/charts/Stock';
-import Finance from '@pages/Finance';
 import Product from '@pages/Product';
 import User from '@pages/User';
 
