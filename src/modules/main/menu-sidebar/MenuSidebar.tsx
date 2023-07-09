@@ -22,7 +22,7 @@ export const MENU: IMenuItem[] = [
   },
   {
     name: i18n.t('menusidebar.label.transaction'),
-    icon: 'fas fa-solid fa-tachometer-alt nav-icon',
+    icon: 'fas fa-thin fa-coins nav-icon',    
     path: '/transaction'
   },
   {
@@ -35,22 +35,22 @@ export const MENU: IMenuItem[] = [
     icon: 'fas fa-light fa-users nav-icon',
     path: '/user'
   },
-  {
-    name: i18n.t('menusidebar.label.mainMenu'),
-    icon: 'far fa-caret-square-down nav-icon',
-    children: [
-      {
-        name: i18n.t('menusidebar.label.stock'),
-        icon: 'fas fa-warehouse nav-icon',
-        path: '/stock'
-      },
-      {
-        name: i18n.t('menusidebar.label.finance'),
-        icon: 'fas fa-thin fa-coins nav-icon',    
-        path: '/finance'
-      }
-    ]
-  },
+  // {
+  //   name: i18n.t('menusidebar.label.mainMenu'),
+  //   icon: 'far fa-caret-square-down nav-icon',
+  //   children: [
+  //     {
+  //       name: i18n.t('menusidebar.label.stock'),
+  //       icon: 'fas fa-warehouse nav-icon',
+  //       path: '/stock'
+  //     },
+  //     {
+  //       name: i18n.t('menusidebar.label.finance'),
+  //       icon: 'fas fa-thin fa-coins nav-icon',    
+  //       path: '/finance'
+  //     }
+  //   ]
+  // },
 ];
 
 const StyledBrandImage = styled(PfImage)`

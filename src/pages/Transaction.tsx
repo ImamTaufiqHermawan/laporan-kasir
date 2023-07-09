@@ -13,6 +13,7 @@ import { ProductService } from '@app/services/productService';
 import { CreateTransactionActions } from '@app/store/actions/transactionActions';
 import { TransactionService } from '@app/services/TransactionService';
 import { useDispatch } from 'react-redux';
+import AutocompleteInput from '@app/components/inputAutoComplete/InputAutoComplete';
 
 const rupiah = (number: Number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -28,7 +29,7 @@ const Transaction = () => {
   const [modal, setModal] = useState(false);
   const [transactions, setTransactions] = useState([])
   const [products, setProducts] = useState([])
-  const [productId, setProductId] = useState()
+  const [productId, setProductId] = useState(0)
   const [product, setProduct] = useState({ product: { price: 0 } })
   const [totalPrice, setTotalPrice] = useState(0)
   const [formCreate, setFormCreate] = useState({})
@@ -115,6 +116,14 @@ const Transaction = () => {
                       </select>
                     </div>
                   </Col>
+                  {/* <Row>
+                    <Col lg="12">
+                      <div className="form-group">
+                        <label className="form-control-label">Harga</label>
+                        <AutocompleteInput data={products}/>
+                      </div>
+                    </Col>
+                  </Row> */}
                   <Col lg="6">
                     <div className="form-group">
                       <label className="form-control-label">Harga</label>

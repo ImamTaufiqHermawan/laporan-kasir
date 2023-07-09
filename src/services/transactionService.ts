@@ -8,20 +8,20 @@ export const TransactionService = {
     return response;
   },
 
-  // getProductById: async (id) => {
-  //   const response = await API.get('/products/' + id);
-  //   return response;
-  // },
+  getTransactionById: async (id) => {
+    const response = await API.get('/transactions/' + id);
+    return response;
+  },
 
   editTransaction: async (id, data) => {
     const response = await API.put('/transactions/' + id, data);
     return response;
   },
 
-  // deleteProduct: async (id) => {
-  //   const response = await API.delete('/products/' + id);
-  //   return response;
-  // },
+  deleteTransaction: async (id) => {
+    const response = await API.delete('/transactions/' + id);
+    return response;
+  },
 
   createTransaction: async (data) => {
     const response = await API.post('/transactions', data);

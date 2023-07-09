@@ -11,15 +11,15 @@ export const UpdateTransactionActions = (id, data) => async () => {
     }       
 }
 
-// export const DeleteProductActions = (id) => async () => {
-//     try {
-//         const response = await ProductService.deleteProduct(id);
-//         toast.success(response?.data?.message || 'Hapus Produk berhasil!');
-//         return response;
-//     } catch (error) {
-//         toast.error(error?.response?.data?.message || 'Gagal Buat Produk!');
-//     }       
-// }
+export const DeleteTransactionActions = (id) => async () => {
+    try {
+        const response = await TransactionService.deleteTransaction(id);
+        toast.success(response?.data?.message || 'Hapus Transaksi berhasil!');
+        return response;
+    } catch (error) {
+        toast.error(error?.response?.data?.message || 'Gagal Hapus Transaksi!');
+    }       
+}
 
 export const CreateTransactionActions = (data) => async () => {
     try {
