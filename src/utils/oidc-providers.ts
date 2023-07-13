@@ -63,29 +63,30 @@ export const getFacebookLoginStatus = () => {
 };
 
 export const authLogin = async (email: string, password: string) => {
-    // if (email === 'admin@example.com' && password === 'admin') {
-    //   localStorage.setItem(
-    //     'authentication',
-    //     JSON.stringify({ profile: { email: 'admin@example.com' } })
-    //   );
-    //   return res({ profile: { email: 'admin@example.com' } });
-    // }
+  // if (email === 'admin@example.com' && password === 'admin') {
+  //   localStorage.setItem(
+  //     'authentication',
+  //     JSON.stringify({ profile: { email: 'admin@example.com' } })
+  //   );
+  //   return res({ profile: { email: 'admin@example.com' } });
+  // }
 
-    console.log('hellow')
+  const response = await UserService.loginUser({ email, password });
 
-    const response = await UserService.loginUser({ email, password });
+  console.log(response.data.data);
 
-    console.log(response.data.data);
+  if (response.data.status == "Success") {
+    localStorage.setItem(
+      "authentication",
+      JSON.stringify({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } })
+    );
+    localStorage.setItem(
+      "token", JSON.stringify(response.data.data.token)
+    );
+    return ({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } });
+  }
 
-    if (response.data.status == "Success") {
-      localStorage.setItem(
-        "authentication",
-        JSON.stringify({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } })
-      );
-      return ({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } });
-    } 
-
-    return ({ message: "Credentials are wrong!" });
+  return ({ message: "Credentials are wrong!" });
 
 };
 
