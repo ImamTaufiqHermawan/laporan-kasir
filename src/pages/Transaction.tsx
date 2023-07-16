@@ -5,11 +5,14 @@ import { ContentHeader } from '@components';
 import TransactionTables from '@app/components/table/Transaction';
 import Search from '@app/components/search/Search';
 import {
-  Button, Modal, ModalFooter,
-  ModalHeader, ModalBody, Card, CardHeader, CardBody, Input, FormGroup
+  Button,
+  Modal,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+  Input,
 } from "reactstrap"
 import { Col, Row } from 'react-bootstrap';
-import { Form } from 'react-router-dom';
 import { ProductService } from '@app/services/productService';
 import { CreateTransactionActions } from '@app/store/actions/transactionActions';
 import { TransactionService } from '@app/services/transactionService';
@@ -34,14 +37,15 @@ const Transaction = () => {
   const [product, setProduct] = useState({ product: { price: 0 } })
   const [totalPrice, setTotalPrice] = useState(0)
   const [formCreate, setFormCreate] = useState({})
+  const [page, setPage] = useState(1);
+  const [searchName, setSearchName] = useState("");
+  const [filterDate, setFilterDate] = useState();
 
   useEffect(() => {
-    TransactionService.getTransactions().then((res) => {
+    TransactionService.getTransactions({ searchName, filterDate, page, limit: 5 }).then((res) => {
       setTransactions(res.data.data);
     });
-  }, [update])
-
-  console.log(transactions)
+  }, [update, searchName])
 
   useEffect(() => {
     ProductService.getProducts().then((res) => {
@@ -86,7 +90,9 @@ const Transaction = () => {
     <>
       <ContentHeader title="Transaksi" />
       <section className="content">
-        <Search></Search>
+
+        {/* <Search menu='transaction'></Search> */}        
+
         <TransactionTables data={transactions}></TransactionTables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>

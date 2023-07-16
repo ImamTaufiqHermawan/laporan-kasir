@@ -81,7 +81,7 @@ export const authLogin = async (email: string, password: string) => {
       JSON.stringify({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } })
     );
     localStorage.setItem(
-      "token", JSON.stringify(response.data.data.token)
+      "token", response.data.data.token
     );
     return ({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } });
   }

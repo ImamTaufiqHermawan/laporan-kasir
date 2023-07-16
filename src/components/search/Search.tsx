@@ -16,7 +16,8 @@ import {
   Media,
 } from "reactstrap";
 
-const Search = () => {
+const Search = (props: { menu: string }) => {
+  console.log(props)
   const [showSearchAlert, setShowSearchAlert] = useState(false);
 
   return (
@@ -24,6 +25,9 @@ const Search = () => {
       <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex justify-content-end">
         <FormGroup className="mb-0">
           <InputGroup className="input-group-alternative">
+            {props?.menu === 'transaction' && (
+              <Input type="date" className='mr-3' />
+            )}
             <InputGroupText>
               <i className="fas fa-search" />
             </InputGroupText>

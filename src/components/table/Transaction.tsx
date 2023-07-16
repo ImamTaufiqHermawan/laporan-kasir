@@ -20,25 +20,28 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
-  Button, Modal, ModalFooter,
-  ModalHeader, ModalBody, FormGroup, Input
+  Button,
+  Modal,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+  Input,
+  InputGroup,
+  InputGroupText,
+  Form,
+  FormGroup,
 } from "reactstrap";
 import { Col } from 'react-bootstrap';
 import { ProductService } from '@app/services/productService';
@@ -68,6 +71,10 @@ const TransactionTables = (data) => {
   const [products, setProducts] = useState([])
   const [product, setProduct] = useState({ product: { price: 0 } })
   const [totalPrice, setTotalPrice] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchName, setSearchName] = useState("");
+  const [filterDate, setFilterDate] = useState();
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     ProductService.getProducts().then((res) => {
@@ -86,10 +93,11 @@ const TransactionTables = (data) => {
   }, [productId])
 
   useEffect(() => {
-    TransactionService.getTransactions().then((res) => {
+    TransactionService.getTransactions({ name: searchName, date: filterDate, page: currentPage, limit: 5 }).then((res) => {
       setTransactions(res.data.data);
+      setTotalPages(res.data.totalPages);
     });
-  }, [update])
+  }, [currentPage, searchName, filterDate, update])
 
   useEffect(() => {
     setTotalPrice(formValues?.quantity * product?.product?.price)
@@ -131,17 +139,57 @@ const TransactionTables = (data) => {
     setDeleteModal(!deleteModal)
   }
 
-  // console.log(data)
-
   const productHandler = (e) => {
     setFormValues({ ...formValues, productId: e.target.value })
     setProductId(e.target.value)
   }
 
-  console.log(transactions)
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const exportTrx = () => {
+    console.log('hello')
+    TransactionService.exportTransactions({ name: searchName, date: filterDate })
+  };
+
+  // console.log(transactions)
+  console.log(currentPage)
 
   return (
     <>
+      <div className="container-fluid">
+        <div className="row mb-2">
+          <div className="col-sm-6">
+            <div className="input-group-append d-md-flex justify-content">
+              <button type="submit" className="btn btn-default btn-flat float-right justify-content" onClick={exportTrx}>
+                <i className="fas fa-download mr-2" />
+                Export Transactions
+              </button>
+            </div>
+          </div>
+          <div className="col-sm-6">
+            <Form className="navbar-search navbar-search-dark form-inline d-none d-md-flex justify-content-end">
+              <InputGroup className="input-group-alternative">
+                <Input
+                  type="date"
+                  className='mr-3'
+                  onChange={(e) => setFilterDate(e.target.value)}
+                />
+                <InputGroupText>
+                  <i className="fas fa-search" />
+                </InputGroupText>
+                <Input
+                  placeholder="Search"
+                  type="text"
+                  onChange={(e) => setSearchName(e.target.value)}
+                />
+              </InputGroup>
+            </Form>
+          </div>
+        </div>
+      </div>
+
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -164,100 +212,73 @@ const TransactionTables = (data) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions?.map((transaction, index) => {
-                    return (
-                      <tr>
-                        <td>{index + 1}</td>
-                        <td>{transaction?.Product?.name}</td>
-                        <td>{rupiah(transaction?.Product?.price)}</td>
-                        <td>{rupiah(transaction?.totalPrice)}</td>
-                        <td>{formatDate(transaction?.transactionDate)}</td>
-                        <td>{transaction?.quantity}</td>
-                        <td>{formatDate(transaction?.createdAt)}</td>
-                        <td>{transaction?.shift}</td>
-                        <td>{transaction?.User?.name}</td>
-                        <td className="text-right">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only"
-                              href="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                onClick={() => editModalHandler(transaction.id)}
+                  {transactions?.length > 0 ? (
+                    transactions?.map((transaction, index) => {
+                      return (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{transaction?.Product?.name}</td>
+                          <td>{rupiah(transaction?.Product?.price)}</td>
+                          <td>{rupiah(transaction?.totalPrice)}</td>
+                          <td>{formatDate(transaction?.transactionDate)}</td>
+                          <td>{transaction?.quantity}</td>
+                          <td>{formatDate(transaction?.createdAt)}</td>
+                          <td>{transaction?.shift}</td>
+                          <td>{transaction?.User?.name}</td>
+                          <td className="text-right">
+                            <UncontrolledDropdown>
+                              <DropdownToggle
+                                className="btn-icon-only"
+                                href="#pablo"
+                                role="button"
+                                size="sm"
+                                color=""
+                                onClick={(e) => e.preventDefault()}
                               >
-                                <i className="fas fa-pencil-alt mr-2" />
-                                Edit
-                              </DropdownItem>
-                              <DropdownItem
-                                onClick={() => deleteModalHandler(transaction.id)}
-                              >
-                                <i className="fas fa-trash-alt mr-2" />
-                                Delete
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                    )
-                  })}
+                                <i className="fas fa-ellipsis-v" />
+                              </DropdownToggle>
+                              <DropdownMenu className="dropdown-menu-arrow" right>
+                                <DropdownItem
+                                  onClick={() => editModalHandler(transaction.id)}
+                                >
+                                  <i className="fas fa-pencil-alt mr-2" />
+                                  Edit
+                                </DropdownItem>
+                                <DropdownItem
+                                  onClick={() => deleteModalHandler(transaction.id)}
+                                >
+                                  <i className="fas fa-trash-alt mr-2" />
+                                  Delete
+                                </DropdownItem>
+                              </DropdownMenu>
+                            </UncontrolledDropdown>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  ) : (
+                    <tr className="h-[30vh]">
+                      <td
+                        colSpan={6}
+                        className="text-center font-medium text-gray-600"
+                      >
+                        Tidak ada Transaksi
+                      </td>
+                    </tr>
+                  )}
+
                 </tbody>
               </Table>
               <CardFooter className="py-4">
                 <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
+                  <Pagination>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <PaginationItem key={page} active={page === currentPage}>
+                        <PaginationLink onClick={() => handlePageChange(page)}>
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
                   </Pagination>
                 </nav>
               </CardFooter>

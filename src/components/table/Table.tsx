@@ -89,6 +89,7 @@ const Tables = (data: any) => {
 
   const updatehandler = async () => {
     console.log(formValues)
+    console.log(localStorage.getItem("token"))
     dispatch(UpdateProductActions(formValues.product.id, formValues));
     setUpdate(!update)
     setEditModal(!editModal)

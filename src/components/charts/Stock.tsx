@@ -13,6 +13,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Container } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
@@ -81,7 +82,9 @@ const Stock = () => {
   };
 
   return (
-    <Line options={options} data={data} />
+    <Container className="mt--7 card" fluid>
+      <Line options={options} data={data} />
+    </Container>
   );
 };
 

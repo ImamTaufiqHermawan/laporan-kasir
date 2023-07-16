@@ -130,6 +130,7 @@ const UserDropdown = () => {
       navigate('/login');
     }
     localStorage.removeItem('authentication');
+    localStorage.removeItem('token');
   };
 
   const navigateToProfile = (event: any) => {

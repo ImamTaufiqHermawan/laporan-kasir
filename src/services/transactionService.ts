@@ -3,10 +3,46 @@ import API from "./api"
 
 export const TransactionService = {
 
-  getTransactions: async () => {
-    const response = await API.get('/transactions');
-    console.log(response)
+  getTransactions: async (
+    query: { name: string, date: date, page: number; limit: number, },
+  ) => {
+    const params = {
+      name: query?.name,
+      date: query?.date,
+      page: query?.page,
+      limit: query?.limit,
+    };
+    const url = '/transactions';
+
+    const response = await API.get(url, { params });
     return response;
+  },
+
+  exportTransactions: async (
+    query: { name: string, date: date },
+  ) => {
+    try {
+      const params = {
+        name: query?.name,
+        date: query?.date,
+      };
+      const apiUrl = '/transactions/export';
+
+      const response = await API.get(apiUrl, { params }, {
+        responseType: 'blob', // Set the response type to blob
+      });
+
+      const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'test.xlsx'); // Specify the file name
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error('Error exporting data:', error);
+    }
   },
 
   getTransactionById: async (id) => {

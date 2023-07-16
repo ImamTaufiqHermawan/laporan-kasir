@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://api-sismo.up.railway.app/api/v1",
+  baseURL: "http://localhost:9000/api/v1",
   headers: {
     Accept: "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
