@@ -271,7 +271,18 @@ const TransactionTables = (data) => {
               </Table>
               <CardFooter className="py-4">
                 <nav aria-label="...">
-                  <Pagination>
+                  <Pagination className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0">
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        tabIndex="-1"
+                      >
+                        <i className="fas fa-angle-left" />
+                        <span className="sr-only">Previous</span>
+                      </PaginationLink>
+                    </PaginationItem>
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                       <PaginationItem key={page} active={page === currentPage}>
                         <PaginationLink onClick={() => handlePageChange(page)}>
@@ -279,6 +290,15 @@ const TransactionTables = (data) => {
                         </PaginationLink>
                       </PaginationItem>
                     ))}
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        <i className="fas fa-angle-right" />
+                        <span className="sr-only">Next</span>
+                      </PaginationLink>
+                    </PaginationItem>
                   </Pagination>
                 </nav>
               </CardFooter>

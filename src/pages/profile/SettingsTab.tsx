@@ -8,7 +8,7 @@ const SettingsTab = ({isActive}: {isActive: boolean}) => {
       <form className="form-horizontal">
         <div className="form-group row">
           <label htmlFor="inputName" className="col-sm-2 col-form-label">
-            Name
+            Nama
           </label>
           <div className="col-sm-10">
             <input
@@ -34,7 +34,7 @@ const SettingsTab = ({isActive}: {isActive: boolean}) => {
         </div>
         <div className="form-group row">
           <label htmlFor="inputName2" className="col-sm-2 col-form-label">
-            Name
+            Password
           </label>
           <div className="col-sm-10">
             <input
@@ -46,26 +46,12 @@ const SettingsTab = ({isActive}: {isActive: boolean}) => {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputExperience" className="col-sm-2 col-form-label">
-            Experience
-          </label>
-          <div className="col-sm-10">
-            <textarea
-              className="form-control"
-              id="inputExperience"
-              placeholder="Experience"
-              defaultValue=""
-            />
-          </div>
-        </div>
-        <div className="form-group row">
           <label htmlFor="inputSkills" className="col-sm-2 col-form-label">
-            Skills
+            Photo
           </label>
           <div className="col-sm-10">
             <input
-              type="text"
-              className="form-control"
+              type="file"
               id="inputSkills"
               placeholder="Skills"
             />

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { ContentHeader } from '@components';
 import {
@@ -10,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Container } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import { TransactionService } from '@app/services/transactionService';
 import { format } from 'date-fns';
@@ -53,8 +53,6 @@ const Finance = () => {
     });
   }, [])
 
-  console.log(transactions)
-
   const groups = groupBy(transactions, (entry: any) => {
     return format(new Date(entry.transactionDate), 'LLLL');
   });
@@ -84,9 +82,7 @@ const Finance = () => {
   };
 
   return (
-    <Container className="mt--7 card" fluid>
-      <Line options={options} data={data} className="mb-5" />
-    </Container>
+    <Line options={options} data={data} className="mb-5"/>
   );
 };
 

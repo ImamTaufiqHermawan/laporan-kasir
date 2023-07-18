@@ -70,7 +70,10 @@
       "profile": "Profile",
       "followers": "Followers",
       "sales": "Sales",
-      "friends": "Friends"
+      "friends": "Friends",
+      "joined": "Akun Dibuat",
+      "updated": "Update Data",
+      "ID": "Id Pegawai"
     }
   },
   "menusidebar": {
