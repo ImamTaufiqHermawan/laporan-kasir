@@ -9,7 +9,7 @@ const Dashboard = () => {
     <>
       <ContentHeader title="Dashboard" />
       <Week />
-      <Finance />
+      {/* <Finance /> */}
       <Stock />
     </>
   );

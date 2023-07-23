@@ -21,7 +21,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Container, Form, Input, InputGroup, InputGroupText } from 'reactstrap';
+import { Container, Form, Input, InputGroup, InputGroupText, Col, Row } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import _, { groupBy } from 'lodash';
@@ -65,10 +65,10 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Mingguan NIH',
+      text: 'Transaksi 2023',
       font: {
         weight: 'bold',
-        size: 22
+        size: 30
       }
     },
   },
@@ -159,26 +159,109 @@ const Week = () => {
     ],
   };
 
+  const months = [
+    {
+      id: 1,
+      value: 'Januari'
+    },
+    {
+      id: 2,
+      value: 'Februari'
+    },
+    {
+      id: 3,
+      value: 'Maret'
+    },
+    {
+      id: 4,
+      value: 'April'
+    },
+    {
+      id: 5,
+      value: 'Mei'
+    },
+    {
+      id: 6,
+      value: 'Juni'
+    },
+    {
+      id: 7,
+      value: 'Juli'
+    },
+    {
+      id: 8,
+      value: 'Agustus'
+    },
+    {
+      id: 9,
+      value: 'September'
+    },
+    {
+      id: 10,
+      value: 'Oktober'
+    },
+    {
+      id: 11,
+      value: 'November'
+    },
+    {
+      id: 12,
+      value: 'Desember'
+    }
+  ]
+
+  const weeks = [
+    {
+      id: 1,
+      value: 1
+    },
+    {
+      id: 2,
+      value: 2
+    },
+    {
+      id: 3,
+      value: 3
+    },
+    {
+      id: 4,
+      value: 4
+    }
+  ]
+
   return (
     <Container className="mt--7 card" fluid>
       <div className="container-fluid">
-        <div className="row mb-2">
+        <div className="row mb-2 mt-3">
           <div className="col-sm-6">
-            <Form className="navbar-search navbar-search-dark form-inline d-none d-md-flex justify-content-end">
-              <InputGroup className="input-group-alternative">
-                <Input
-                  placeholder="Bulan ke"
-                  type="text"
-                  className='mr-3'
-                  onChange={(e) => setMonth(e.target.value)}
-                />
-                <Input
-                  placeholder="Minggu ke"
-                  type="text"
-                  onChange={(e) => setWeek(e.target.value)}
-                />
-              </InputGroup>
-            </Form>
+            <Row>
+              <Col lg="3">
+                <div className="form-group">
+                  <label className="form-control-label">Bulan</label>
+                  <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setMonth(e.target.value)}>
+                    <option value={0}>-- Pilih bulan --</option>
+                    {months?.map((item) => {
+                      return (
+                        <option key={item.id} value={item.id}>{item.value}</option>
+                      )
+                    })}
+                  </select>
+                </div>
+              </Col>
+              <Col lg="3">
+                <div className="form-group">
+                  <label className="form-control-label">Minggu Ke</label>
+                  <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setWeek(e.target.value)}>
+                    <option value={0}>-- Pilih Minggu Ke --</option>
+                    {weeks?.map((item) => {
+                      return (
+                        <option key={item.id} value={item.id}>{item.value}</option>
+                      )
+                    })}
+                  </select>
+                </div>
+              </Col>
+            </Row>
           </div>
         </div>
       </div>
