@@ -25,27 +25,9 @@ import { Container, Form, Input, InputGroup, InputGroupText, Col, Row } from 're
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import _, { groupBy } from 'lodash';
-// import { startOfWeek, addWeeks, getMonth } from 'date-fns';
 import sumBy from 'lodash/sumBy';
 
-import ActivityTab from '../../pages/profile/ActivityTab';
-import TimelineTab from '../../pages/profile/TimelineTab';
-import SettingsTab from '../../pages/profile/SettingsTab';
 import { TransactionService } from '@app/services/transactionService';
-import { formatDate } from '@app/utils/date';
-import { format } from 'date-fns';
-
-const rupiah = (number: Number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR"
-  }).format(number);
-}
-
-const StyledUserImage = styled(PfImage)`
-  --pf-border: 3px solid #adb5bd;
-  --pf-padding: 3px;
-`;
 
 ChartJS.register(
   CategoryScale,

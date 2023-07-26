@@ -65,4 +65,18 @@ export const TransactionService = {
     return response;
   },
 
+  getStocks: async (
+    query: { name: string, date: date, page: number; limit: number, },
+  ) => {
+    const params = {
+      name: query?.name,
+      date: query?.date,
+      page: query?.page,
+      limit: query?.limit,
+    };
+    const url = '/products/stock';
+
+    const response = await API.get(url, { params });
+    return response;
+  }
 }
