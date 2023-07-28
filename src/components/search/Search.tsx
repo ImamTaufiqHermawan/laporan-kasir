@@ -25,9 +25,6 @@ const Search = (props: { menu: string }) => {
       <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex justify-content-end">
         <FormGroup className="mb-0">
           <InputGroup className="input-group-alternative">
-            {props?.menu === 'transaction' && (
-              <Input type="date" className='mr-3' />
-            )}
             <InputGroupText>
               <i className="fas fa-search" />
             </InputGroupText>

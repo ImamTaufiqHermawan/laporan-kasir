@@ -1,6 +1,7 @@
-import {PfImage} from '@profabric/react-components';
+import { PfImage } from '@profabric/react-components';
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledContentImage = styled(PfImage)`
@@ -11,7 +12,9 @@ const StyledContentImage = styled(PfImage)`
   }
 `;
 
-const TimelineTab = ({isActive}: {isActive: boolean}) => {
+const TimelineTab = ({ isActive }: { isActive: boolean }) => {
+  const { profile } = useSelector((state: any) => state.auth.authentication);
+
   return (
     <div className={`tab-pane ${isActive ? 'active' : ''}`}>
       {/* The timeline */}
@@ -107,10 +110,10 @@ const TimelineTab = ({isActive}: {isActive: boolean}) => {
               <span> uploaded new photos</span>
             </h3>
             <div className="timeline-body">
-              <StyledContentImage src="/img/default-profile.png" width={25} />
-              <StyledContentImage src="/img/default-profile.png" width={25} />
-              <StyledContentImage src="/img/default-profile.png" width={25} />
-              <StyledContentImage src="/img/default-profile.png" width={25} />
+              <StyledContentImage src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"} width={25} />
+              <StyledContentImage src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"} width={25} />
+              <StyledContentImage src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"} width={25} />
+              <StyledContentImage src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"} width={25} />
             </div>
           </div>
         </div>

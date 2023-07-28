@@ -1,6 +1,7 @@
-import {PfImage} from '@profabric/react-components';
+import { PfImage } from '@profabric/react-components';
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledUserImage = styled(PfImage)`
@@ -9,12 +10,14 @@ const StyledUserImage = styled(PfImage)`
   float: left;
 `;
 
-const Post = ({isClearfix = false}: {isClearfix?: boolean}) => {
+const Post = ({ isClearfix = false }: { isClearfix?: boolean }) => {
+  const { profile } = useSelector((state: any) => state.auth.authentication);
+
   return (
     <div className={`post ${isClearfix ? 'clearfix' : ''}`}>
       <div className="user-block">
         <StyledUserImage
-          src="/img/default-profile.png"
+          src={profile?.profilePic}
           alt="User"
           width={40}
           height={40}

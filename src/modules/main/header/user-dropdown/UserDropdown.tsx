@@ -111,6 +111,7 @@ const UserDropdown = () => {
   const dispatch = useDispatch();
   const authentication = useSelector((state: any) => state.auth.authentication);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { profile } = useSelector((state: any) => state.auth.authentication);
 
   const logOut = async (event: any) => {
     event.preventDefault();
@@ -143,7 +144,7 @@ const UserDropdown = () => {
     <StyledDropdown isOpen={dropdownOpen} hideArrow>
       <StyledSmallUserImage
         slot="button"
-        src={authentication.profile.picture}
+        src={profile?.profilePic}
         fallbackSrc="/img/default-profile.png"
         alt="User"
         width={25}
@@ -153,7 +154,7 @@ const UserDropdown = () => {
       <div slot="menu">
         <UserHeader className=" bg-primary">
           <StyledBigUserImage
-            src={authentication.profile.picture}
+            src={profile?.profilePic}
             fallbackSrc="/img/default-profile.png"
             alt="User"
             width={90}

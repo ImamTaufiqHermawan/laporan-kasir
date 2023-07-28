@@ -3,9 +3,17 @@ import API from "./api"
 
 export const ProductService = {
 
-  getProducts: async () => {
-    const response = await API.get('/products');
-    console.log(response)
+  getProducts: async (
+    query: { name: string, page: number; limit: number },
+  ) => {
+    const params = {
+      name: query?.name,
+      page: query?.page,
+      limit: query?.limit,
+    };
+    const url = '/products';
+
+    const response = await API.get(url, { params });
     return response;
   },
 

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {PfDropdown, PfImage} from '@profabric/react-components';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 export const StyledDropdown = styled(PfDropdown)`
   border: none;
@@ -26,6 +27,9 @@ export const StyledDropdown = styled(PfDropdown)`
 
 const MessagesDropdown = () => {
   const [t] = useTranslation();
+  const { profile } = useSelector((state: any) => state.auth.authentication);
+
+  console.log(profile)
 
   return (
     <StyledDropdown hideArrow>
@@ -37,7 +41,7 @@ const MessagesDropdown = () => {
         <Link to="/" className="dropdown-item">
           <div className="media">
             <PfImage
-              src="/img/default-profile.png"
+              src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"}
               alt="User Avatar"
               width={50}
               rounded
@@ -67,7 +71,7 @@ const MessagesDropdown = () => {
         <Link to="/" className="dropdown-item">
           <div className="media">
             <PfImage
-              src="/img/default-profile.png"
+              src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"}
               alt="User Avatar"
               width={50}
               rounded
@@ -97,7 +101,7 @@ const MessagesDropdown = () => {
         <Link to="/" className="dropdown-item">
           <div className="media">
             <PfImage
-              src="/img/default-profile.png"
+              src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"}
               alt="User Avatar"
               width={50}
               rounded

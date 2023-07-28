@@ -49,7 +49,7 @@ const Product = () => {
     ProductService.getProducts().then((res) => {
       setproducts(res.data.data);
     });
-  }, [update]);
+  }, []);
 
   const createHandler = async () => {
     dispatch(CreateProductActions(formCreate));
@@ -61,7 +61,6 @@ const Product = () => {
     <>
       <ContentHeader title="Produk" />
       <section className="content">
-        <Search></Search>
         <Tables data={products}></Tables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button

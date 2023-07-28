@@ -38,7 +38,8 @@ import {
   Row,
   UncontrolledTooltip,
   Button, Modal, ModalFooter,
-  ModalHeader, ModalBody, FormGroup, Input
+  ModalHeader, ModalBody, FormGroup, Input,
+  Form, InputGroup, InputGroupText
 } from "reactstrap";
 import { Col } from 'react-bootstrap';
 import { ProductService } from '@app/services/productService';
@@ -60,13 +61,17 @@ const Tables = (data: any) => {
   const [formValues, setFormValues] = useState([])
   const [productId, setProductId] = useState()
   const [update, setUpdate] = useState(false)
-  const [products, setproducts] = useState(data)
+  const [products, setproducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchName, setSearchName] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    ProductService.getProducts().then((res) => {
-      setproducts(res.data.data);
-    });
-  }, [update, data])
+    ProductService.getProducts({ name: searchName, page: currentPage, limit: 2 }).then((res) => {
+      setproducts(res?.data?.data);
+      setTotalPages(res.data.totalPages);
+    }); 
+  }, [currentPage, searchName, update])
 
   // Toggle for Modal
   const toggleEditModal = () => {
@@ -77,6 +82,7 @@ const Tables = (data: any) => {
       setEditModal(!editModal);
     }
   }
+
   const toggleDeleteModal = () => setDeleteModal(!deleteModal);
 
   const editModalHandler = async (id: any) => {
@@ -106,8 +112,28 @@ const Tables = (data: any) => {
     setDeleteModal(!deleteModal)
   }
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  console.log(products)
+
   return (
     <>
+      <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex justify-content-end">
+        <FormGroup className="mb-0">
+          <InputGroup className="input-group-alternative">
+            <InputGroupText>
+              <i className="fas fa-search" />
+            </InputGroupText>
+            <Input
+              placeholder="Search"
+              type="text"
+              onChange={(e) => setSearchName(e.target.value)}
+            />
+          </InputGroup>
+        </FormGroup>
+      </Form>
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -126,7 +152,7 @@ const Tables = (data: any) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products?.products?.map((product, index) => {
+                  {products?.map((product, index) => {
                     return (
                       <tr>
                         <td>{index + 1}</td>
@@ -169,48 +195,29 @@ const Tables = (data: any) => {
               </Table>
               <CardFooter className="py-4">
                 <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
+                  <Pagination className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0">
+                    <PaginationItem>
                       <PaginationLink
                         href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={() => setCurrentPage(currentPage - 1)}
                         tabIndex="-1"
                       >
                         <i className="fas fa-angle-left" />
                         <span className="sr-only">Previous</span>
                       </PaginationLink>
                     </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <PaginationItem key={page} active={page === currentPage}>
+                        <PaginationLink onClick={() => handlePageChange(page)}>
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
                     <PaginationItem>
                       <PaginationLink
                         href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={() => setCurrentPage(currentPage + 1)}
                       >
                         <i className="fas fa-angle-right" />
                         <span className="sr-only">Next</span>

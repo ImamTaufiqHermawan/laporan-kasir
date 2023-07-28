@@ -78,12 +78,32 @@ export const authLogin = async (email: string, password: string) => {
   if (response.data.status == "Success") {
     localStorage.setItem(
       "authentication",
-      JSON.stringify({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } })
+      JSON.stringify({
+        profile: {
+          email: email,
+          role: response.data.data.role,
+          username: response.data.data.username,
+          profilePic: response.data.data.profilePic,
+          created: response.data.data.created,
+          updated: response.data.data.updated,
+          userId: response.data.data.id,
+        }
+      })
     );
     localStorage.setItem(
       "token", response.data.data.token
     );
-    return ({ profile: { email: email, role: response.data.data.role, username: response.data.data.username } });
+    return ({
+      profile: {
+        email: email,
+        role: response.data.data.role,
+        username: response.data.data.username,
+        profilePic: response.data.data.profilePic,
+        created: response.data.data.created,
+        updated: response.data.data.updated,
+        userId: response.data.data.id
+      }
+    })
   }
 
   return ({ message: "Credentials are wrong!" });

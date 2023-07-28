@@ -8,6 +8,7 @@ import ActivityTab from './ActivityTab';
 import TimelineTab from './TimelineTab';
 import SettingsTab from './SettingsTab';
 import { useSelector } from 'react-redux';
+import { formatDate } from '@app/utils/date';
 
 const StyledUserImage = styled(PfImage)`
   --pf-border: 3px solid #adb5bd;
@@ -37,7 +38,7 @@ const Profile = () => {
                       width={100}
                       height={100}
                       rounded
-                      src="/img/default-profile.png"
+                      src={profile?.profilePic ? profile?.profilePic : "/img/default-profile.png"} 
                       alt="User profile"
                     />
                   </div>
@@ -49,20 +50,20 @@ const Profile = () => {
                     <li className="list-group-item">
                       <b>{t<string>('header.user.ID')}</b>
 
-                      <span className="float-right">3</span>
+                      <span className="float-right">{profile.userId}</span>
                     </li>
                     <li className="list-group-item">
                       <b>{t<string>('header.user.joined')}</b>
-                      <span className="float-right">2023-Maret-10</span>
+                      <span className="float-right">{formatDate(profile.created)}</span>
                     </li>
                     <li className="list-group-item">
                       <b>{t<string>('header.user.updated')}</b>
-                      <span className="float-right">2023-April-10</span>
+                      <span className="float-right">{formatDate(profile.updated)}</span>
                     </li>
                   </ul>
                 </div>
                 {/* /.card-body */}
-              </div>              
+              </div>
             </div>
             <div className="col-md-9">
               <div className="card">

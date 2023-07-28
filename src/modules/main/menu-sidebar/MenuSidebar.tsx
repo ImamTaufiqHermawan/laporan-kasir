@@ -1,10 +1,10 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {MenuItem} from '@components';
-import {PfImage} from '@profabric/react-components';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { MenuItem } from '@components';
+import { PfImage } from '@profabric/react-components';
 import styled from 'styled-components';
-import {SidebarSearch} from '@app/components/sidebar-search/SidebarSearch';
+import { SidebarSearch } from '@app/components/sidebar-search/SidebarSearch';
 import i18n from '@app/utils/i18n';
 
 export interface IMenuItem {
@@ -22,7 +22,7 @@ export const MENU: IMenuItem[] = [
   },
   {
     name: i18n.t('menusidebar.label.transaction'),
-    icon: 'fas fa-thin fa-coins nav-icon',    
+    icon: 'fas fa-thin fa-coins nav-icon',
     path: '/transaction'
   },
   {
@@ -71,6 +71,7 @@ const MenuSidebar = () => {
   const sidebarSkin = useSelector((state: any) => state.ui.sidebarSkin);
   const menuItemFlat = useSelector((state: any) => state.ui.menuItemFlat);
   const menuChildIndent = useSelector((state: any) => state.ui.menuChildIndent);
+  const { profile } = useSelector((state: any) => state.auth.authentication);
 
   return (
     <aside className={`main-sidebar elevation-4 ${sidebarSkin}`}>
@@ -88,8 +89,7 @@ const MenuSidebar = () => {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
             <StyledUserImage
-              src={authentication.profile.picture}
-              fallbackSrc="/img/default-profile.png"
+              src={profile?.profilePic}
               alt="User"
               width={34}
               height={34}
@@ -107,11 +107,10 @@ const MenuSidebar = () => {
           {/* <SidebarSearch /> */}
         </div>
 
-        <nav className="mt-2" style={{overflowY: 'hidden'}}>
+        <nav className="mt-2" style={{ overflowY: 'hidden' }}>
           <ul
-            className={`nav nav-pills nav-sidebar flex-column${
-              menuItemFlat ? ' nav-flat' : ''
-            }${menuChildIndent ? ' nav-child-indent' : ''}`}
+            className={`nav nav-pills nav-sidebar flex-column${menuItemFlat ? ' nav-flat' : ''
+              }${menuChildIndent ? ' nav-child-indent' : ''}`}
             role="menu"
           >
             {MENU.map((menuItem: IMenuItem) => (
