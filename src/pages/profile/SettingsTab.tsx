@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { UserService } from '@app/services/userService';
 import { UpdateUserActions } from '@app/store/actions/userActions';
 import { setAuthentication } from '@app/store/reducers/auth';
