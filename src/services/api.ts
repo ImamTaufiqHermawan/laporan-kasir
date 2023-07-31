@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const token = `Bearer ${localStorage.getItem("token")}`;
+const baseURL = "https://api-sismo.up.railway.app/api/v1";
 
 const API = axios.create({
-  baseURL: "https://api-sismo.up.railway.app/api/v1",
+  baseURL,
   headers: {
     Accept: "application/json",
     Authorization: token,
