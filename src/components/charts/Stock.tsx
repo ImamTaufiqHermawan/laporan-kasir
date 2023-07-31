@@ -62,7 +62,7 @@ const Stock = () => {
       },
       title: {
         display: true,
-        text: `Stok 2023 ${searchName}`,
+        text: `Stok Barang ${searchName}`,
         font: {
           weight: 'bold',
           size: 22

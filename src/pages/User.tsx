@@ -9,7 +9,7 @@ import {
   ModalHeader, ModalBody, Card, CardHeader, CardBody, Input, FormGroup
 } from "reactstrap"
 import { Col, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CreateProductActions } from '@app/store/actions';
 import { ProductService } from '@app/services/productService';
 import { toast } from 'react-toastify';
@@ -23,20 +23,18 @@ const User = () => {
   const [formCreate, setFormCreate] = useState([])
   const [products, setproducts] = useState([])
   const [users, setUsers] = useState([])
+  const { profile } = useSelector((state: any) => state.auth.authentication);
 
   const [t] = useTranslation();
 
   // Toggle for Modal
   const toggleModal = () => {
-    const user = {
-      role: 'pegawai'
-    }
-    if(user.role === 'manager') {
-      toast.error('KAMU GAK BISA AKSES INI KARENA KAMU BUKAN MANAGER!');
+    if (profile.role === "Staff") {
+      toast.error("Kamu bukan manager!");
     } else {
       setModal(!modal);
     }
-  }
+  };
 
   useEffect(() => {
     UserService.getUsers().then((res) => {
@@ -80,7 +78,7 @@ const User = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-name"
-                        placeholder="Lisma Nurmala"
+                        placeholder="Masukan Nama Pegawai"
                         name='name'
                         type="text"
                         onChange={(e) => setFormCreate({ ...formCreate, name: e.target.value })}
@@ -95,7 +93,7 @@ const User = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-email"
-                        placeholder="lismacantik@mail.com"
+                        placeholder="Masukan Email Pegawai"
                         name='email'
                         type="text"
                         onChange={(e) => setFormCreate({ ...formCreate, email: e.target.value })}
@@ -110,7 +108,7 @@ const User = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-password"
-                        placeholder="LismaCantikBanget123"
+                        placeholder="Masukkan Password"
                         name='name'
                         type="text"
                         onChange={(e) => setFormCreate({ ...formCreate, password: e.target.value })}

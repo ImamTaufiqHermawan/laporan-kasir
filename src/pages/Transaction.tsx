@@ -106,8 +106,8 @@ const Transaction = () => {
         }}>
           <Modal isOpen={modal} toggle={toggleModal}>
             <ModalHeader
-              toggle={toggleModal}>Buat Transaksi</ModalHeader>
-            <ModalBody>
+              toggle={toggleModal}>Transaksi</ModalHeader>
+            <ModalBody>Buat Transaksi
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="6">
@@ -115,7 +115,7 @@ const Transaction = () => {
                       <label className="form-control-label">Nama Produk</label>
                       <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => productHandler(e)}>
                         <option value={0}>-- Pilih Product --</option>
-                        {products?.products?.map((item) => {
+                        {products?.map((item) => {
                           return (
                             <option key={item.id} value={item.id}>{item.name}</option>
                           )

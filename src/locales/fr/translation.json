@@ -83,8 +83,7 @@
     }
   },
   "footer": {
-    "version": "Version",
-    "copyright": "All rights reserved."
+    
   },
   "views": {
     "user": {

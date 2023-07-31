@@ -143,7 +143,7 @@ const Tables = (data: any) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">No</th>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Stok</th>
@@ -154,8 +154,8 @@ const Tables = (data: any) => {
                 <tbody>
                   {products?.map((product, index) => {
                     return (
-                      <tr>
-                        <td>{index + 1}</td>
+                      <tr key={product.id}>
+                        <td>{product.id}</td>
                         <td>{product.name}</td>
                         <td>{rupiah(product.price)}</td>
                         <td>{product.stock}</td>

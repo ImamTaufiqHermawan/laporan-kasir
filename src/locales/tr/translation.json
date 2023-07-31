@@ -83,8 +83,7 @@
     }
   },
   "footer": {
-    "version": "Versiyon",
-    "copyright": "Tüm hakları saklıdır."
+    
   },
   "views": {
     "user": {
