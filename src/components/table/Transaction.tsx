@@ -77,10 +77,13 @@ const TransactionTables = (data) => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    ProductService.getProducts().then((res) => {
+    ProductService.getProducts({ name: '', page: 1, limit: 100 }).then((res) => {
+      console.log(res.data.data)
       setProducts(res.data.data);
     });
   }, [])
+
+  console.log(products)
 
   useEffect(() => {
     if (productId === 0) {
@@ -199,7 +202,7 @@ const TransactionTables = (data) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">No</th>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Total Harga</th>
@@ -215,8 +218,8 @@ const TransactionTables = (data) => {
                   {transactions?.length > 0 ? (
                     transactions?.map((transaction, index) => {
                       return (
-                        <tr>
-                          <td>{index + 1}</td>
+                        <tr key={transaction.id}>
+                          <td>{transaction.id}</td>
                           <td>{transaction?.Product?.name}</td>
                           <td>{rupiah(transaction?.Product?.price)}</td>
                           <td>{rupiah(transaction?.totalPrice)}</td>
@@ -320,8 +323,7 @@ const TransactionTables = (data) => {
                   <div className="form-group">
                     <label className="form-control-label">Nama Produk</label>
                     <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => productHandler(e)} value={formValues?.productId}>
-                      <option value={0}>-- Pilih Product --</option>
-                      {products?.products?.map((item) => {
+                      {products?.map((item) => {
                         return (
                           <option key={item.id} value={item.id}>{item.name}</option>
                         )

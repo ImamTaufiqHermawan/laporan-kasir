@@ -37,12 +37,11 @@ const Product = () => {
 
   // Toggle for Modal
   const toggleModal = () => {
-    // if (profile.role === "Staff") {
-    //   toast.error("Kamu bukan manager!");
-    // } else {
-    //   setModal(!modal);
-    // }
-    setModal(!modal);
+    if (profile.role === "Staff") {
+      toast.error("Kamu bukan manager!");
+    } else {
+      setModal(!modal);
+    }
   };
 
   useEffect(() => {
