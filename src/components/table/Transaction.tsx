@@ -51,6 +51,7 @@ import { useDispatch } from 'react-redux';
 import { TransactionService } from '@app/services/transactionService';
 import { formatDateDefault } from '@app/utils/defaultDate';
 import { DeleteTransactionActions, UpdateTransactionActions } from '@app/store/actions/transactionActions';
+import { ExportToExcel } from '@app/utils/export';
 
 const rupiah = (number: Number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -75,6 +76,7 @@ const TransactionTables = (data) => {
   const [searchName, setSearchName] = useState("");
   const [filterDate, setFilterDate] = useState();
   const [totalPages, setTotalPages] = useState(1);
+  const [trx, setTrx] = useState([]);
 
   useEffect(() => {
     ProductService.getProducts({ name: '', page: 1, limit: 100 }).then((res) => {
@@ -101,6 +103,14 @@ const TransactionTables = (data) => {
       setTotalPages(res.data.totalPages);
     });
   }, [currentPage, searchName, filterDate, update])
+
+  useEffect(() => {
+    TransactionService.getTransactions({ name: searchName, date: filterDate, page: currentPage, limit: 100 }).then((res) => {
+      setTrx(res.data.data);
+    });
+  }, [currentPage, searchName, filterDate, update])
+
+  console.log(trx)
 
   useEffect(() => {
     setTotalPrice(formValues?.quantity * product?.product?.price)
@@ -151,13 +161,7 @@ const TransactionTables = (data) => {
     setCurrentPage(page);
   };
 
-  const exportTrx = () => {
-    console.log('hello')
-    TransactionService.exportTransactions({ name: searchName, date: filterDate })
-  };
-
-  // console.log(transactions)
-  console.log(currentPage)
+  const fileName = "transactions"; // here enter filename for your excel file
 
   return (
     <>
@@ -165,10 +169,11 @@ const TransactionTables = (data) => {
         <div className="row mb-2">
           <div className="col-sm-6">
             <div className="input-group-append d-md-flex justify-content">
-              <button type="submit" className="btn btn-default btn-flat float-right justify-content" onClick={exportTrx}>
+              {/* <button type="submit" className="btn btn-default btn-flat float-right justify-content" onClick={exportTrx}>
                 <i className="fas fa-download mr-2" />
                 Export Transactions
-              </button>
+              </button> */}
+              <ExportToExcel apiData={trx} fileName={fileName} />
             </div>
           </div>
           <div className="col-sm-6">

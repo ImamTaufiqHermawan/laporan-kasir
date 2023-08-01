@@ -27,7 +27,7 @@ const SettingsTab = ({ isActive }: { isActive: boolean }) => {
 
     fetchData();
 
-  }, [update])
+  }, [update, dispatch])
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -42,6 +42,8 @@ const SettingsTab = ({ isActive }: { isActive: boolean }) => {
     formData.append('email', formValues.user.email);
     formData.append('password', formValues.user.password)
     dispatch(UpdateUserActions(profile.userId, formData));
+    const response = await authLogin(formValues.user.email, formValues.user.password);
+    dispatch(setAuthentication(response as any));
     setUpdate(!update)
   }
 
@@ -58,6 +60,7 @@ const SettingsTab = ({ isActive }: { isActive: boolean }) => {
               className="form-control"
               id="name"
               placeholder="Name"
+              defaultValue={profile.username}
               onChange={(e) => setFormValues({ ...formValues, user: { ...formValues.user, name: e.target.value } })}
             />
           </div>
@@ -72,6 +75,7 @@ const SettingsTab = ({ isActive }: { isActive: boolean }) => {
               className="form-control"
               id="email"
               placeholder="Email"
+              defaultValue={profile.email}
               onChange={(e) => setFormValues({ ...formValues, user: { ...formValues.user, email: e.target.value } })}
             />
           </div>
