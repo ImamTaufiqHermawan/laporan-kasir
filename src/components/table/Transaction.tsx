@@ -96,7 +96,7 @@ const TransactionTables = (data) => {
   }, [productId])
 
   useEffect(() => {
-    TransactionService.getTransactions({ name: searchName, date: filterDate, page: currentPage, limit: 5 }).then((res) => {
+    TransactionService.getTransactions({ name: searchName, date: filterDate, page: currentPage, limit: 10 }).then((res) => {
       setTransactions(res.data.data);
       setTotalPages(res.data.totalPages);
     });
@@ -219,7 +219,7 @@ const TransactionTables = (data) => {
                     transactions?.map((transaction, index) => {
                       return (
                         <tr key={transaction.id}>
-                          <td>{transaction.id}</td>
+                          <td>{currentPage === 1 ? index + 1 : (currentPage - 1) * 10 + index + 1}</td>
                           <td>{transaction?.Product?.name}</td>
                           <td>{rupiah(transaction?.Product?.price)}</td>
                           <td>{rupiah(transaction?.totalPrice)}</td>

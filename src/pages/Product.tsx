@@ -48,7 +48,7 @@ const Product = () => {
     ProductService.getProducts().then((res) => {
       setproducts(res.data.data);
     });
-  }, []);
+  }, [update]);
 
   const createHandler = async () => {
     dispatch(CreateProductActions(formCreate));
@@ -89,7 +89,7 @@ const Product = () => {
                       <Input
                         className="form-control-alternative"
                         id="input-name"
-                        placeholder="ayam"
+                        placeholder="Masukkan nama produk"
                         name="name"
                         type="text"
                         onChange={(e) =>

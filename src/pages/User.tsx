@@ -48,13 +48,11 @@ const User = () => {
     setModal(!modal)
   }
 
-  console.log(formCreate)
-
   return (
     <>
       <ContentHeader title="Pegawai" />
       <section className="content">
-        <Search></Search>
+        {/* <Search></Search> */}
         <Tables data={users}></Tables>
         <div className="input-group-append d-md-flex justify-content-end">
           <button type="submit" className="btn btn-default btn-flat float-right my-3" onClick={toggleModal}>

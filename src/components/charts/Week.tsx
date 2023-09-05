@@ -217,7 +217,7 @@ const Week = () => {
         <div className="row mb-2 mt-3">
           <div className="col-sm-6">
             <Row>
-              <Col lg="3">
+              <Col lg="6">
                 <div className="form-group">
                   <label className="form-control-label">Bulan</label>
                   <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setMonth(e.target.value)}>
@@ -230,7 +230,7 @@ const Week = () => {
                   </select>
                 </div>
               </Col>
-              <Col lg="3">
+              <Col lg="6">
                 <div className="form-group">
                   <label className="form-control-label">Minggu Ke</label>
                   <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setWeek(e.target.value)}>

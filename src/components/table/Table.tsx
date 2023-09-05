@@ -67,11 +67,11 @@ const Tables = (data: any) => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    ProductService.getProducts({ name: searchName, page: currentPage, limit: 2 }).then((res) => {
+    ProductService.getProducts({ name: searchName, page: currentPage, limit: 10 }).then((res) => {
       setproducts(res?.data?.data);
       setTotalPages(res.data.totalPages);
     }); 
-  }, [currentPage, searchName, update])
+  }, [data, currentPage, searchName, update])
 
   // Toggle for Modal
   const toggleEditModal = () => {
@@ -116,8 +116,6 @@ const Tables = (data: any) => {
     setCurrentPage(page);
   };
 
-  console.log(products)
-
   return (
     <>
       <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex justify-content-end">
@@ -155,7 +153,7 @@ const Tables = (data: any) => {
                   {products?.map((product, index) => {
                     return (
                       <tr key={product.id}>
-                        <td>{product.id}</td>
+                        <td>{currentPage === 1 ? index + 1 : (currentPage - 1) * 10 + index + 1}</td>
                         <td>{product.name}</td>
                         <td>{rupiah(product.price)}</td>
                         <td>{product.stock}</td>

@@ -87,13 +87,12 @@ const Tables = (data) => {
     console.log(id)
     const user = await UserService.getUserById(id)
     console.log(user.data?.data)
-    setFormValues(user?.data?.data)
+    setFormValues(user?.data?.data.user)
     setEditModal(!editModal)
   }
 
   const updatehandler = async () => {
-    console.log(formValues)
-    dispatch(UpdateUserActions(formValues.user.id, formValues));
+    dispatch(UpdateUserActions(formValues.id, formValues));
     setUpdate(!update)
     setEditModal(!editModal)
   }
@@ -171,7 +170,7 @@ const Tables = (data) => {
                 </tbody>
               </Table>
               <CardFooter className="py-4">
-                <nav aria-label="...">
+                {/* <nav aria-label="...">
                   <Pagination
                     className="pagination justify-content-end mb-0"
                     listClassName="justify-content-end mb-0"
@@ -219,8 +218,8 @@ const Tables = (data) => {
                         <span className="sr-only">Next</span>
                       </PaginationLink>
                     </PaginationItem>
-                  </Pagination>
-                </nav>
+                  </Pagination> 
+                </nav> */}
               </CardFooter>
             </Card>
           </div>
@@ -241,12 +240,12 @@ const Tables = (data) => {
                     <label className="form-control-label">Nama Pegawai</label>
                     <Input
                       className="form-control-alternative"
-                      defaultValue={formValues?.user?.name}
+                      value={formValues?.name}
                       id="input-name"
                       placeholder="masukkan nama pegawai"
                       name='name'
                       type="text"
-                      onChange={(e) => setFormValues({ ...formValues, user: { ...formValues.user, name: e.target.value } })}
+                      onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
                     />
                   </div>
                 </Col>
@@ -257,12 +256,12 @@ const Tables = (data) => {
                     <label className="form-control-label">Email Pegawai</label>
                     <Input
                       className="form-control-alternative"
-                      defaultValue={formValues?.user?.email}
+                      value={formValues?.email}
                       id="input-email"
                       placeholder="masukkan email pegawai"
                       name='email'
                       type="text"
-                      onChange={(e) => setFormValues({ ...formValues, user: { ...formValues.user, email: e.target.value } })}
+                      onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
                     />
                   </div>
                 </Col>
